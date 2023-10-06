@@ -45,7 +45,7 @@ export const getAll = async (req, res) => {
             if (err) throw err
 
             if(result) {
-                res.status(201).json({ ...result })
+                res.status(200).json({ ...result })
             } else {
                 res.status(400).json({
                     message: "Invalid credentials"
@@ -59,6 +59,7 @@ export const getAll = async (req, res) => {
 
 export const get = async (req, res) => {
     const { id } = req.params
+    
     pool.getConnection((err, connection) => {
         if (err) throw err
         const query = `SELECT * FROM products WHERE id = ${id}`
@@ -67,7 +68,7 @@ export const get = async (req, res) => {
             if (err) throw err
 
             if(result) {
-                res.status(201).json({ ...result })
+                res.status(200).json({ ...result })
             } else {
                 res.status(400).json({
                     message: "Invalid credentials"
@@ -92,7 +93,7 @@ export const update = async (req, res) => {
             const { changedRows } = result
 
             if(changedRows === 1) {
-                res.status(201).json({
+                res.status(200).json({
                     message: "Product updated successfully"
                 })
             } else {
@@ -118,7 +119,7 @@ export const deleteProduct = async (req, res) => {
             const { affectedRows } = result
 
             if(affectedRows === 1) {
-                res.status(201).json({
+                res.status(200).json({
                     message: "Product deleted successfully"
                 })
             } else {

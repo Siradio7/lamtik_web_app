@@ -11,11 +11,11 @@ const pool = mysql.createPool({
 })
 
 export const add = async (req, res) => {
-    const customer = req.body
+    const category = req.body
 
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = `INSERT INTO customers(last_name, first_name, email, phone, location) VALUES ('${customer.last_name}', '${customer.first_name}', '${customer.email}', '${customer.phone}', '${customer.location}')`
+        const query = `INSERT INTO categories(name, description) VALUES ('${category.name}', '${category.description}')`
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -23,7 +23,7 @@ export const add = async (req, res) => {
 
             if(affectedRows === 1) {
                 res.status(201).json({
-                    message: "Customer added successfully"
+                    message: "Category added successfully"
                 })
             } else {
                 res.status(400).json({
@@ -39,7 +39,7 @@ export const add = async (req, res) => {
 export const getAll = async (req, res) => {
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = "SELECT * FROM customers"
+        const query = "SELECT * FROM categories"
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -59,9 +59,10 @@ export const getAll = async (req, res) => {
 
 export const get = async (req, res) => {
     const { id } = req.params
+
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = `SELECT * FROM customers WHERE id = ${id}`
+        const query = `SELECT * FROM categories WHERE id = ${id}`
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -81,11 +82,11 @@ export const get = async (req, res) => {
 
 export const update = async (req, res) => {
     const { id } = req.params
-    const { ...customer } = req.body
+    const { ...category } = req.body
 
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = `UPDATE customers SET last_name = '${customer.last_name}', first_name = '${customer.first_name}', email = '${customer.email}', phone = '${customer.phone}', location = '${customer.location}' WHERE id = ${id}`
+        const query = `UPDATE categories SET name = '${category.name}', price = '${category.description}' WHERE id = ${id}`
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -93,7 +94,7 @@ export const update = async (req, res) => {
 
             if(changedRows === 1) {
                 res.status(200).json({
-                    message: "Customer updated successfully"
+                    message: "Category updated successfully"
                 })
             } else {
                 res.status(400).json({
@@ -106,12 +107,12 @@ export const update = async (req, res) => {
     })
 }
 
-export const deleteCustomer = async (req, res) => {
+export const deleteCategory = async (req, res) => {
     const { id } = req.params
 
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = `DELETE FROM customers WHERE id = ${id}`
+        const query = `DELETE FROM categories WHERE id = ${id}`
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -119,7 +120,7 @@ export const deleteCustomer = async (req, res) => {
 
             if(affectedRows === 1) {
                 res.status(200).json({
-                    message: "Customer deleted successfully"
+                    message: "Category deleted successfully"
                 })
             } else {
                 res.status(400).json({
