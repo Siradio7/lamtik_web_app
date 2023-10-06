@@ -11,11 +11,11 @@ const pool = mysql.createPool({
 })
 
 export const add = async (req, res) => {
-    const category = req.body
+    const job = req.body
 
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = `INSERT INTO categories(name, description) VALUES ('${category.name}', '${category.description}')`
+        const query = `INSERT INTO jobs(name) VALUES ('${job.name}')`
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -23,7 +23,7 @@ export const add = async (req, res) => {
 
             if(affectedRows === 1) {
                 res.status(201).json({
-                    message: "Category added successfully"
+                    message: "Job added successfully"
                 })
             } else {
                 res.status(400).json({
@@ -39,7 +39,7 @@ export const add = async (req, res) => {
 export const getAll = async (req, res) => {
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = "SELECT * FROM categories"
+        const query = "SELECT * FROM jobs"
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -62,7 +62,7 @@ export const get = async (req, res) => {
 
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = `SELECT * FROM categories WHERE id = ${id}`
+        const query = `SELECT * FROM jobs WHERE id = ${id}`
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -82,11 +82,11 @@ export const get = async (req, res) => {
 
 export const update = async (req, res) => {
     const { id } = req.params
-    const { ...category } = req.body
+    const { ...job } = req.body
 
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = `UPDATE categories SET name = '${category.name}', description = '${category.description}' WHERE id = ${id}`
+        const query = `UPDATE jobs SET name = '${job.name}' WHERE id = ${id}`
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -94,7 +94,7 @@ export const update = async (req, res) => {
 
             if(changedRows === 1) {
                 res.status(200).json({
-                    message: "Category updated successfully"
+                    message: "Job updated successfully"
                 })
             } else {
                 res.status(400).json({
@@ -107,12 +107,12 @@ export const update = async (req, res) => {
     })
 }
 
-export const deleteCategory = async (req, res) => {
+export const deleteJob = async (req, res) => {
     const { id } = req.params
 
     pool.getConnection((err, connection) => {
         if (err) throw err
-        const query = `DELETE FROM categories WHERE id = ${id}`
+        const query = `DELETE FROM jobs WHERE id = ${id}`
         
         connection.query(query, (err, result) => {
             if (err) throw err
@@ -120,7 +120,7 @@ export const deleteCategory = async (req, res) => {
 
             if(affectedRows === 1) {
                 res.status(200).json({
-                    message: "Category deleted successfully"
+                    message: "Job deleted successfully"
                 })
             } else {
                 res.status(400).json({
