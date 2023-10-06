@@ -5,6 +5,7 @@ import authRoutes from "./routes/users.js"
 import customersRoutes from "./routes/customers.js"
 import productsRoutes from "./routes/products.js"
 import categoriesRoutes from "./routes/categories.js"
+import providersRoutes from "./routes/providers.js"
 
 dotenv.config()
 
@@ -18,6 +19,7 @@ server.use("/auth", authRoutes)
 server.use("/customers", customersRoutes)
 server.use("/products", productsRoutes)
 server.use("/categories", categoriesRoutes)
+server.use("/providers", providersRoutes)
 
 const start_callback = () => { 
     console.log(`Server started on http://localhost:${PORT}`)
