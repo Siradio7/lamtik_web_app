@@ -3,7 +3,7 @@ import mysql from "mysql"
 
 dotenv.config()
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 export const add = async (req, res) => {
     const customer = req.body
 
-    connection.connect(err => {
+    pool.getConnection((err, connection) => {
         if (err) throw err
         const query = `INSERT INTO customers(last_name, first_name, email, phone, location) VALUES ('${customer.last_name}', '${customer.first_name}', '${customer.email}', '${customer.phone}', '${customer.location}')`
         
@@ -30,12 +30,14 @@ export const add = async (req, res) => {
                     message: "Invalid credentials"
                 })
             }
+
+            connection.release()
         })
     })
 }
 
 export const getAll = async (req, res) => {
-    connection.connect(err => {
+    pool.getConnection((err, connection) => {
         if (err) throw err
         const query = "SELECT * FROM customers"
         
@@ -49,13 +51,15 @@ export const getAll = async (req, res) => {
                     message: "Invalid credentials"
                 })
             }
+
+            connection.release()
         })
     })
 }
 
 export const get = async (req, res) => {
     const { id } = req.params
-    connection.connect(err => {
+    pool.getConnection((err, connection) => {
         if (err) throw err
         const query = `SELECT * FROM customers where id = ${id}`
         
@@ -69,6 +73,8 @@ export const get = async (req, res) => {
                     message: "Invalid credentials"
                 })
             }
+
+            connection.release()
         })
     })
 }
@@ -77,7 +83,7 @@ export const update = async (req, res) => {
     const { id } = req.params
     const { ...customer } = req.body
 
-    connection.connect(err => {
+    pool.getConnection((err, connection) => {
         if (err) throw err
         const query = `UPDATE customers SET last_name = '${customer.last_name}', first_name = '${customer.first_name}', email = '${customer.email}', phone = '${customer.phone}', location = '${customer.location}' WHERE id = ${id}`
         
@@ -94,6 +100,8 @@ export const update = async (req, res) => {
                     message: "Invalid credentials"
                 })
             }
+
+            connection.release()
         })
     })
 }
@@ -101,7 +109,7 @@ export const update = async (req, res) => {
 export const deleteCustomer = async (req, res) => {
     const { id } = req.params
 
-    connection.connect(err => {
+    pool.getConnection((err, connection) => {
         if (err) throw err
         const query = `DELETE FROM customers WHERE id = ${id}`
         
@@ -119,6 +127,8 @@ export const deleteCustomer = async (req, res) => {
                     message: "Invalid credentials"
                 })
             }
+
+            connection.release()
         })
     })
 }
