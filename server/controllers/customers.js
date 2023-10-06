@@ -1,0 +1,124 @@
+import dotenv from "dotenv"
+import mysql from "mysql"
+
+dotenv.config()
+
+const connection = mysql.createConnection({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
+})
+
+export const add = async (req, res) => {
+    const customer = req.body
+
+    connection.connect(err => {
+        if (err) throw err
+        const query = `INSERT INTO customers(last_name, first_name, email, phone, location) VALUES ('${customer.last_name}', '${customer.first_name}', '${customer.email}', '${customer.phone}', '${customer.location}')`
+        
+        connection.query(query, (err, result) => {
+            if (err) throw err
+            const { affectedRows } = result
+
+            if(affectedRows === 1) {
+                res.status(201).json({
+                    message: "Customer added successfully"
+                })
+            } else {
+                res.status(400).json({
+                    message: "Invalid credentials"
+                })
+            }
+        })
+    })
+}
+
+export const getAll = async (req, res) => {
+    connection.connect(err => {
+        if (err) throw err
+        const query = "SELECT * FROM customers"
+        
+        connection.query(query, (err, result) => {
+            if (err) throw err
+
+            if(result) {
+                res.status(201).json({ ...result })
+            } else {
+                res.status(400).json({
+                    message: "Invalid credentials"
+                })
+            }
+        })
+    })
+}
+
+export const get = async (req, res) => {
+    const { id } = req.params
+    connection.connect(err => {
+        if (err) throw err
+        const query = `SELECT * FROM customers where id = ${id}`
+        
+        connection.query(query, (err, result) => {
+            if (err) throw err
+
+            if(result) {
+                res.status(201).json({ ...result })
+            } else {
+                res.status(400).json({
+                    message: "Invalid credentials"
+                })
+            }
+        })
+    })
+}
+
+export const update = async (req, res) => {
+    const { id } = req.params
+    const { ...customer } = req.body
+
+    connection.connect(err => {
+        if (err) throw err
+        const query = `UPDATE customers SET last_name = '${customer.last_name}', first_name = '${customer.first_name}', email = '${customer.email}', phone = '${customer.phone}', location = '${customer.location}' WHERE id = ${id}`
+        
+        connection.query(query, (err, result) => {
+            if (err) throw err
+            const { changedRows } = result
+
+            if(changedRows === 1) {
+                res.status(201).json({
+                    message: "Customer updated successfully"
+                })
+            } else {
+                res.status(400).json({
+                    message: "Invalid credentials"
+                })
+            }
+        })
+    })
+}
+
+export const deleteCustomer = async (req, res) => {
+    const { id } = req.params
+
+    connection.connect(err => {
+        if (err) throw err
+        const query = `DELETE FROM customers WHERE id = ${id}`
+        
+        connection.query(query, (err, result) => {
+            if (err) throw err
+            const { affectedRows } = result
+
+            console.log(result)
+            if(affectedRows === 1) {
+                res.status(201).json({
+                    message: "Customer deleted successfully"
+                })
+            } else {
+                res.status(400).json({
+                    message: "Invalid credentials"
+                })
+            }
+        })
+    })
+}
