@@ -1,14 +1,4 @@
-import dotenv from "dotenv"
-import mysql from "mysql"
-
-dotenv.config()
-
-const pool = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-})
+import { pool } from "./users.js"
 
 export const add = async (req, res) => {
     const provider = req.body

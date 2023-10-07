@@ -5,7 +5,7 @@ import mysql from "mysql"
 
 dotenv.config()
 
-const connection = mysql.createConnection({
+export const pool = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -18,7 +18,7 @@ export const signup = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, salt)
     const newUser = { hashPassword, ...user }
 
-    connection.connect(err => {
+    pool.getConnection((err, connection) => {
         const query = `INSERT INTO users(last_name, first_name, email, password) VALUES('${newUser.last_name}', '${newUser.first_name}', '${newUser.email}', '${newUser.hashPassword}')`
         
         connection.query(query, (err) => {
@@ -31,6 +31,8 @@ export const signup = async (req, res) => {
                     message: "Utilisateur créé avec succès"
                 })
             }
+
+            connection.release()
         })
     })
 }
@@ -38,15 +40,15 @@ export const signup = async (req, res) => {
 export const signin = async (req, res) => {
     const { email, password } = req.body
 
-    connection.connect(err => {
+    pool.getConnection((err, connection) => {
         if(err) throw err
 
         const query = `SELECT * FROM users WHERE email = '${email}'`
         connection.query(query, async (err, result) => {
             if (err) throw err
-            const { ...user } = result[0]
+            const user = result[0] || null
 
-            if (user) {
+            if (user !== null) {
                 const validPassword = await bcrypt.compare(password, user.password)
 
                 if (validPassword) {
@@ -59,6 +61,8 @@ export const signin = async (req, res) => {
             } else {
                 res.status(400).json({ message: "Invalid credentials"})
             }
+
+            connection.release()
         })
     })
 }
