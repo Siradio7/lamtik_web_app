@@ -31,14 +31,15 @@ export default function Signin () {
             setTimeout(() => {
                 reset()
                 navigate('/')
-            }, 6000)
+            }, 2000)
 		}
 	}, [data, isSuccess, navigate, reset])
 
     useEffect(() => {
         if (isError) {
             toast.error("Erreur les identifiants sont incorrects", {
-                theme: "dark"
+                theme: "dark",
+                position: "bottom-right"
             })
         }
     })
@@ -49,13 +50,14 @@ export default function Signin () {
 
     return <div className="flex items-center justify-center min-h-screen">
         <ToastContainer
-			autoClose={5000}
+			autoClose={1000}
 			hideProgressBar={false}
 			newestOnTop
 			closeOnClick
 			pauseOnFocusLoss
 			pauseOnHover
         />
+        
         <form onSubmit={handleSubmit(onSubmit)} action="" className="flex flex-col p-6 space-y-4 bg-slate-600 w-1/3 rounded-md h-80">
             <h2 className="text-center text-xl font-semibold mb-6">Sign In</h2>
             <input {...register("email")} type="email" placeholder="Email" name="email" className="h-10 rounded-md bg-slate-700 px-2 mb-2" />

@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router-dom"
 import { Bounce, Fade } from "react-reveal"
-import { FaProductHunt, FaCubes } from "react-icons/fa"
+import { FaProductHunt, FaCubes, FaHome } from "react-icons/fa"
 import { BsFillPeopleFill } from "react-icons/bs"
 import react_svg from "../assets/react.svg"
 
@@ -13,6 +13,10 @@ export default function Home() {
 
             <Fade left>
                 <div className="w-full flex flex-col px-2 space-y-3">
+                    <Link to={"/"} className="w-full h-10 flex items-center px-4 rounded-md hover:bg-slate-800 text-white transition duration-300">
+                        <FaHome className="mx-3" /> Dashboard
+                    </Link>
+
                     <Link to={"/customers"} className="w-full h-10 flex items-center px-4 rounded-md hover:bg-slate-800 text-white transition duration-300">
                         <BsFillPeopleFill className="mx-3" /> Clients
                     </Link>

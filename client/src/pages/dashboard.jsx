@@ -3,7 +3,7 @@ import { BsFillPeopleFill } from "react-icons/bs"
 import { BiSolidCategoryAlt } from "react-icons/bi"
 import { FaShoppingCart, FaCubes } from "react-icons/fa"
 import { Fade, Zoom } from "react-reveal"
-import img_bg from "../assets/react.svg"
+import img_bg from "../assets/profil.jpg"
 
 export default function Dashboard() {
     return <div>
@@ -38,47 +38,105 @@ export default function Dashboard() {
                 </Fade>
 
                 <Fade right>
-                    <img src={img_bg} alt="" className="h-10 w-10 rounded-md" />
+                    <img src={img_bg} alt="" className="h-10 w-10 rounded-full cursor-pointer" />
                 </Fade>
             </div>
         </div>
 
-        <div className="p-4">
+        <div className="p-4 space-y-4">
             <div className="flex space-x-4">
-                <div className="w-64 h-20 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-400 rounded-md">
-                    <FaShoppingCart className="text-5xl" />
+                <Zoom>
+                    <div className="w-1/4 h-20 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+                        <FaShoppingCart className="text-5xl" />
 
-                    <div className="flex flex-col space-y-2">
-                        <span className="font-bold text-blue-700">145</span>
-                        <p className="font-bold">Commandes</p>
+                        <div className="flex flex-col space-y-2">
+                            <span className="font-bold text-blue-700">145</span>
+                            <p className="font-bold">Commandes</p>
+                        </div>
                     </div>
+                </Zoom>
+
+                <Zoom>
+                    <div className="w-1/4 h-20 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+                        <BsFillPeopleFill className="text-5xl" />
+
+                        <div className="flex flex-col space-y-2">
+                            <span className="font-bold text-blue-700">867</span>
+                            <p className="font-bold">Clients</p>
+                        </div>
+                    </div>
+                </Zoom>
+
+                <Zoom>
+                    <div className="w-1/4 h-20 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+                        <BiSolidCategoryAlt className="text-5xl" />
+
+                        <div className="flex flex-col space-y-2">
+                            <span className="font-bold text-blue-700">239</span>
+                            <p className="font-bold">Categories</p>
+                        </div>
+                    </div>
+                </Zoom>
+
+                <Zoom>
+                    <div className="w-1/4 h-20 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+                        <FaCubes className="text-5xl" />
+
+                        <div className="flex flex-col space-y-2">
+                            <span className="font-bold text-blue-700">1234</span>
+                            <p className="font-bold">Produits</p>
+                        </div>
+                    </div>
+                </Zoom>
+            </div>
+
+            <div className="flex space-x-4">
+                <div className="w-1/2 h-80 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+
                 </div>
 
-                <div className="w-64 h-20 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-400 rounded-md">
-                    <BsFillPeopleFill className="text-5xl" />
+                <div className="w-1/2 h-80 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
 
-                    <div className="flex flex-col space-y-2">
-                        <span className="font-bold text-blue-700">867</span>
-                        <p className="font-bold">Clients</p>
-                    </div>
+                </div>
+            </div>
+
+            <div className="flex space-x-4">
+                <div className="w-1/2 h-32 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+
                 </div>
 
-                <div className="w-64 h-20 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-400 rounded-md">
-                    <BiSolidCategoryAlt className="text-5xl" />
+                <div className="w-1/2 h-32 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
 
-                    <div className="flex flex-col space-y-2">
-                        <span className="font-bold text-blue-700">239</span>
-                        <p className="font-bold">Categories</p>
-                    </div>
+                </div>
+            </div>
+
+            <div className="flex space-x-4">
+                <div className="w-1/2 h-32 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+
                 </div>
 
-                <div className="w-64 h-20 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-400 rounded-md">
-                    <FaCubes className="text-5xl" />
+                <div className="w-1/2 h-32 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
 
-                    <div className="flex flex-col space-y-2">
-                        <span className="font-bold text-blue-700">1234</span>
-                        <p className="font-bold">Produits</p>
-                    </div>
+                </div>
+            </div>
+
+            <div className="flex space-x-4">
+                <div className="w-1/2 h-32 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+
+                </div>
+
+                <div className="w-1/2 h-32 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+
+                </div>
+            </div>
+
+            <div className="flex space-x-4">
+                <div className="w-1/2 h-32 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+
+                </div>
+
+                <div className="w-1/2 h-32 px-2 space-x-3 flex items-center cursor-pointer hover:bg-slate-500 bg-slate-700 rounded-md">
+
                 </div>
             </div>
         </div>
