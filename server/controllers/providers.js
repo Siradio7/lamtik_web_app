@@ -1,4 +1,4 @@
-import { pool } from "./users.js"
+import { pool } from "../utils/dbPool.js"
 
 export const add = async (req, res) => {
     const provider = req.body

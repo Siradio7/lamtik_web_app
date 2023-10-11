@@ -1,16 +1,6 @@
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import dotenv from "dotenv"
-import mysql from "mysql"
-
-dotenv.config()
-
-export const pool = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-})
+import { pool } from "../utils/dbPool.js"
 
 export const signup = async (req, res) => {
     const { password, ...user} = req.body
