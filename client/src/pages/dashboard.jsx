@@ -4,9 +4,41 @@ import { BiSolidCategoryAlt } from "react-icons/bi"
 import { FaShoppingCart, FaCubes } from "react-icons/fa"
 import { Fade, Zoom } from "react-reveal"
 import img_bg from "../assets/profil.jpg"
+import { useState } from "react"
+import { ToastContainer, toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 export default function Dashboard() {
+    const [showLogoutComponent, setShowLogoutComponent] = useState(false)
+
+    const handleClickProfile = () => {
+        setShowLogoutComponent(!showLogoutComponent)
+    }
+
+    const navigate = useNavigate()
+
+    const handleClickLogout = () => {
+        toast.success(`Déconnexion reussie`, {
+            theme: "dark",
+            position: "bottom-right"
+        })
+
+        setTimeout(() => {
+            localStorage.removeItem("user")
+            navigate("/signin")
+        }, 2000)
+    }
+
     return <div>
+        <ToastContainer
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            pauseOnFocusLoss
+            pauseOnHover
+        />
+
         <div className="h-14 px-4 bg-slate-900 shadow shadow-black flex items-center justify-between">
             <Zoom>
                 <div className="flex items-center space-x-3">
@@ -38,7 +70,14 @@ export default function Dashboard() {
                 </Fade>
 
                 <Fade right>
-                    <img src={img_bg} alt="" className="h-10 w-10 rounded-full cursor-pointer" />
+                    <div className="flex">
+                        <img src={img_bg} alt="" onClick={handleClickProfile} className="h-10 w-10 rounded-full cursor-pointer" />
+                        {
+                            showLogoutComponent && <Fade right> <div className="ml-4">
+                                <button onClick={handleClickLogout} className="h-10 flex items-center px-4 rounded-md outline outline-1 outline-slate-800 hover:bg-slate-900 bg-slate-800 text-white transition duration-700">Logout</button>
+                            </div> </Fade>
+                        }
+                    </div>
                 </Fade>
             </div>
         </div>
