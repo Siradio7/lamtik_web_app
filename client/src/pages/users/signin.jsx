@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import * as yup from "yup"
 import { useSigninMutation } from "../../api/auth"
 import { useForm } from "react-hook-form"
@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import { Bounce } from "react-reveal"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import MyLinkRouter from "../../components/link"
 
 const schema = yup.object().shape({
     email: yup.string().email().required('Email obligatoire'),
@@ -66,8 +67,8 @@ export default function Signin() {
                 <input {...register("password")} type="password" placeholder="Password" name="password" className="h-10 rounded-md bg-slate-700 px-2 mb-6" />
 
                 <div className="flex items-center justify-between pt-4">
-                    <button type="submit" className="h-10 flex items-center px-4 rounded-md outline outline-1 outline-slate-800 hover:bg-slate-900 bg-slate-800 text-white transition duration-700">{isLoading ? 'Loading...' : 'Sign In'}</button>
-                    <Link to={"/signup"} className="h-10 flex items-center px-4 rounded-md outline outline-1 outline-slate-800 hover:bg-slate-800 text-white transition duration-700">Sign Up</Link>
+                    <button type="submit" className="h-10 flex items-center px-4 rounded-md outline outline-1 outline-slate-800 hover:bg-slate-900 bg-slate-800 text-white transition duration-700">{isLoading ? 'Loading...' : 'Submit'}</button>
+                    <MyLinkRouter to={"/signup"} name={"Sign Up"} />
                 </div>
             </form>
         </Bounce>

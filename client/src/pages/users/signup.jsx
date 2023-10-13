@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import * as yup from "yup"
 import { useSignupMutation } from "../../api/auth"
 import { useForm } from "react-hook-form"
@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import { ToastContainer, toast } from "react-toastify"
 import { Bounce } from "react-reveal"
 import "react-toastify/dist/ReactToastify.css"
+import MyLinkRouter from "../../components/link"
 
 const schema = yup.object().shape({
     email: yup.string().email().required('Email obligatoire'),
@@ -68,7 +69,7 @@ export default function Signup() {
 
                 <div className="flex items-center justify-between pt-4">
                     <button type="submit" className="h-10 flex items-center px-4 rounded-md outline outline-1 outline-slate-800 hover:bg-slate-900 bg-slate-800 text-white transition duration-700">{isLoading ? 'Loading...' : 'Sign Up'}</button>
-                    <Link to={"/signin"} className="h-10 flex items-center px-4 rounded-md outline outline-1 outline-slate-800 hover:bg-slate-800 text-white transition duration-700">Sign in</Link>
+                    <MyLinkRouter to={"/signin"} name={"Sign In"} />
                 </div>
             </form>
         </Bounce>

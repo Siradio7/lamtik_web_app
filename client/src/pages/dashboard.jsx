@@ -29,6 +29,8 @@ export default function Dashboard() {
         }, 2000)
     }
 
+    const { user } = JSON.parse(localStorage.getItem("user"))
+
     return <div>
         <ToastContainer
             autoClose={1000}
@@ -70,12 +72,15 @@ export default function Dashboard() {
                 </Fade>
 
                 <Fade right>
-                    <div className="flex">
+                    <div className="flex z-50">
                         <img src={img_bg} alt="" onClick={handleClickProfile} className="h-10 w-10 rounded-full cursor-pointer" />
                         {
-                            showLogoutComponent && <Fade right> <div className="ml-4">
-                                <button onClick={handleClickLogout} className="h-10 flex items-center px-4 rounded-md outline outline-1 outline-slate-800 hover:bg-slate-900 bg-slate-800 text-white transition duration-700">Logout</button>
-                            </div> </Fade>
+                            showLogoutComponent && <Fade right> 
+                                <div className="absolute bg-slate-400 px-4 py-2 space-y-4 w-56 h-24 right-0 mt-12 rounded-md">
+                                    <p className="text-md font-bold font-sans text-blue-600">{user.first_name + " " + user.last_name }</p>
+                                    <button onClick={handleClickLogout} className="w-full h-10 px-4 rounded-md outline outline-1 text-slate-800 outline-slate-800 hover:bg-slate-900 hover:text-white bottom-0 transition-all duration-700">Logout</button>
+                                </div>
+                            </Fade>
                         }
                     </div>
                 </Fade>
