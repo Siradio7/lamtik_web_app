@@ -7,7 +7,11 @@ import { useEffect } from "react"
 import { ToastContainer, toast } from "react-toastify"
 import { Bounce } from "react-reveal"
 import "react-toastify/dist/ReactToastify.css"
+<<<<<<< HEAD
 import MyLinkRouter from "../../components/link"
+=======
+import "./signin.css"
+>>>>>>> e589940d015001d3f0313e5fe4a4e1221070af6c
 
 const schema = yup.object().shape({
     email: yup.string().email().required('Email obligatoire'),
@@ -49,7 +53,7 @@ export default function Signup() {
         signup(data)
     }
 
-    return <div className="flex items-center justify-center min-h-screen">
+    return <div className="flex items-center justify-center min-h-screen bg">
         <ToastContainer
             autoClose={1000}
             hideProgressBar={false}
